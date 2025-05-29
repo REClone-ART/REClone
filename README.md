@@ -28,3 +28,73 @@ graph TD
     B --> C[Prefab Loader]
     B --> D[Lua Scripting]
     D --> E[Asset Interface]
+
+    RSZ Types define all entity/component structure
+
+    ECS stores and executes game logic
+
+    LuaJIT drives gameplay
+
+    .pfb/.scn files are RSZ-serialized scene graphs
+
+🛠 Tooling
+
+We integrate with the RE modding ecosystem:
+Tool	Purpose
+REFramework	Live game type metadata introspection
+RszTool	.natives & .msb parser
+010 Editor	Binary format reverse-engineering
+Fluffy Mod Manager	Asset pack management (for testing)
+📁 Directory Structure
+
+src/
+├── core/        → ECS & type system
+├── rsz/         → RSZ loader & serializer
+├── scripting/   → Lua integration
+├── assets/      → Mesh, textures, materials
+
+🚀 Getting Started
+Prerequisites
+
+    C++17 or higher
+
+    CMake 3.20+
+
+    LuaJIT (or sol2)
+
+    SDL2 / ImGui (for UI testing)
+
+Build (Linux / Windows)
+
+git clone https://github.com/YourUser/REClone.git
+cd REClone
+cmake -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+
+👥 Contributing
+
+We are actively looking for:
+
+    Reverse engineers
+
+    C++ developers
+
+    Lua scripters
+
+    3D asset engineers (Blender, Noesis)
+
+    Technical documentation writers
+
+Open a PR or issue to start collaborating. Join our Discord (coming soon!).
+📄 License
+
+MIT – Open to use, share, and improve. Attribution welcome.
+🙏 Acknowledgments
+
+    REFramework
+
+    RszTool
+
+    REEngine-Modding-Documentation
+
+    Capcom for pushing technical boundaries in game engine design

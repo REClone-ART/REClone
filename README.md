@@ -21,6 +21,17 @@ This is an early-stage **research + prototyping** project. Contributions are wel
 ---
 
 ## 🧱 Architecture Overview
+graph TD
+    A[RSZ Type System]
+    B[ECS Core]
+    C[Prefab Loader]
+    D[Lua Scripting]
+    E[Asset Interface]
+
+    A --> B
+    B --> C
+    B --> D
+    D --> E
 
 ```mermaid
 graph TD

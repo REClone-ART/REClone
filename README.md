@@ -1,26 +1,24 @@
-# 🎮 REClone – Reverse-Engineering Capcom's RE Engine
+# 🧬 REClone: Reverse-Engineering the RE Engine
 
-**REClone** is an open-source, metadata-driven reimplementation of Capcom’s proprietary RE Engine (used in Resident Evil, Devil May Cry, Monster Hunter, etc). Our goal is to reverse-engineer the engine’s architecture and rebuild a minimal, working clone using reflection-based serialization (RSZ), ECS, Lua scripting, and asset pipelines.
-
-> 🧠 Powered by reverse-engineered data, modding tools, and REFramework introspection.
+> A community-driven effort to analyze, document, and replicate the core systems of Capcom’s RE Engine — from RSZ serialization to ECS, Lua scripting, and scene composition.
 
 ---
 
-## 🚧 Project Status
+## 📌 What is REClone?
 
-This is an early-stage **research + prototyping** project. Contributions are welcome.
+**REClone** is a reverse-engineering initiative and prototype framework inspired by the architecture of Capcom's RE Engine. Our goal is to build a modular, open-source clone of the RE Engine's runtime systems for education, tooling, and experimentation.
 
-- ✅ RSZ Deserializer prototype (WIP)
-- ✅ ECS core structure
-- ⬜ RSZ → Prefab instancing
-- ⬜ Lua scripting API
-- ⬜ Asset (.mesh, .mdf2) loaders
-- ⬜ Timeline / animation research
-- ⬜ Scene / camera system
+---
+
+## 🧠 Core Concept: RSZ Reflection is the Heart
+
+RE Engine is a **metadata-driven architecture** built on RSZ (Reflection Serialization). Every object, component, and asset is defined and processed via RSZ metadata types. Understanding and replicating RSZ is the cornerstone of this project.
 
 ---
 
 ## 🧱 Architecture Overview
+
+```mermaid
 graph TD
     A[RSZ Type System]
     B[ECS Core]
@@ -32,80 +30,159 @@ graph TD
     B --> C
     B --> D
     D --> E
+````
 
-```mermaid
-graph TD
-    A[RSZ Type System] --> B[ECS Core]
-    B --> C[Prefab Loader]
-    B --> D[Lua Scripting]
-    D --> E[Asset Interface]
+---
 
-    RSZ Types define all entity/component structure
+## 🔬 Reverse Engineering Plan
 
-    ECS stores and executes game logic
+### Phase 1: Foundational Research
 
-    LuaJIT drives gameplay
+#### ✅ RSZ Serialization
 
-    .pfb/.scn files are RSZ-serialized scene graphs
+* Dump all RSZ types via REFramework:
 
-🛠 Tooling
+  ```lua
+  for name, type in pairs(re.manager:get_types()) do
+      log.info(string.format("%s (Size: 0x%X)", name, type:get_size()))
+  end
+  ```
+* Use `RszTool`, `.natives` dumps, and 010 Editor templates to analyze `.scn`, `.pfb`, `.mesh`, `.mdf2` formats.
 
-We integrate with the RE modding ecosystem:
-Tool	Purpose
-REFramework	Live game type metadata introspection
-RszTool	.natives & .msb parser
-010 Editor	Binary format reverse-engineering
-Fluffy Mod Manager	Asset pack management (for testing)
-📁 Directory Structure
+#### ✅ Subsystem Mapping
 
-src/
-├── core/        → ECS & type system
-├── rsz/         → RSZ loader & serializer
-├── scripting/   → Lua integration
-├── assets/      → Mesh, textures, materials
+| Subsystem   | Hook Target          | Tools                     |
+| ----------- | -------------------- | ------------------------- |
+| Entity Init | `Entity.create()`    | REFramework, Cheat Engine |
+| File Access | `FileSystem.open()`  | RETool, ProcMon           |
+| Lua         | `LuaState.execute()` | REFramework Lua Hooks     |
 
-🚀 Getting Started
-Prerequisites
+---
 
-    C++17 or higher
+### Phase 2: RECloneCore Prototype
 
-    CMake 3.20+
+#### ✳️ Type System Kernel
 
-    LuaJIT (or sol2)
+```cpp
+class RSZType {
+public:
+    std::string name;
+    uint32_t size;
+    std::map<std::string, uint16_t> fields;
+};
+std::vector<RSZType> g_typeDB;
+```
 
-    SDL2 / ImGui (for UI testing)
+#### ✳️ Entity-Component System (ECS)
 
-Build (Linux / Windows)
+```cpp
+class Entity {
+    std::vector<std::shared_ptr<Component>> components;
+    void add_component(uint32_t type_id);
+};
+```
 
-git clone https://github.com/YourUser/REClone.git
-cd REClone
-cmake -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
+#### ✳️ Asset Loading
 
-👥 Contributing
+* Parse `.mesh`, `.mdf2`, `.tex` using custom tools or convert via Noesis plugins.
 
-We are actively looking for:
+#### ✳️ Lua Scripting
 
-    Reverse engineers
+```lua
+function Entity:update()
+    if self:get("Transform").position.y < 0 then
+        self:destroy()
+    end
+end
+```
 
-    C++ developers
+---
 
-    Lua scripters
+### Phase 3: Tool-Driven Validation
 
-    3D asset engineers (Blender, Noesis)
+| Goal               | Tool                      | Validation         |
+| ------------------ | ------------------------- | ------------------ |
+| RSZ Field Accuracy | RszTool, REFramework      | > 95% field match  |
+| Scene Load         | `.pfb` preview in REClone | Correct transforms |
+| Lua Behavior       | Script tests              | Pathfinding & AI   |
 
-    Technical documentation writers
+---
 
-Open a PR or issue to start collaborating. Join our Discord (coming soon!).
-📄 License
+## 🚀 Getting Started
 
-MIT – Open to use, share, and improve. Attribution welcome.
-🙏 Acknowledgments
+### Prerequisites
 
-    REFramework
+* C++17 compiler
+* LuaJIT or Sol2
+* Python 3.10+ (for tooling)
+* Noesis (for asset inspection)
+* REFramework installed on RE Engine game
 
-    RszTool
+### Build Instructions (Coming Soon)
 
-    REEngine-Modding-Documentation
+---
 
-    Capcom for pushing technical boundaries in game engine design
+## 🛠️ Tools We Use
+
+| Tool                                                                   | Purpose                                  |
+| ---------------------------------------------------------------------- | ---------------------------------------- |
+| [REFramework](https://github.com/praydog/REFramework)                  | Live RE Engine type dump + Lua injection |
+| [RszTool](https://github.com/some-reverse-rsz-tool)                    | Static RSZ and `.natives` analysis       |
+| [010 Editor + Templates](https://github.com/Wunkolo/RE-010-Templates)  | Reverse file formats                     |
+| [Fluffy Manager 5000](https://github.com/fluffyquack/FluffyModManager) | Mod deployment and asset packing         |
+| [RE-BHVT-Editor](https://github.com/AlphaZDev/RE-BHVT-Editor)          | Behavior tree visualization              |
+
+---
+
+## 🧩 Contribution Roadmap
+
+### ✅ Milestone 1: Bootstrapped RSZ Loader
+
+* [ ] Parse RSZ header and type IDs
+* [ ] Match types to `.natives` info
+* [ ] Load single `.pfb` prefab
+
+### 🚧 Milestone 2: Minimal Scene
+
+* [ ] Import `.mesh`
+* [ ] Load one material (`.mdf2`)
+* [ ] Display via any 3D API (OpenGL/Vulkan)
+
+### 🧪 Milestone 3: Lua Live Scripting
+
+* [ ] Update loop
+* [ ] Basic physics triggers
+* [ ] AI behavior trees
+
+---
+
+## 💬 Community & Collaboration
+
+We’re actively looking for:
+
+* Reverse engineers
+* C++/Lua developers
+* Technical artists (shader/material knowledge)
+* File format researchers
+
+### 📣 Join us on Discord (Coming Soon)
+
+* Share findings
+* Test patches
+* Collaborate on scene ports
+
+---
+
+## 💡 Insight to Remember
+
+> "**RSZ is the Rosetta Stone of RE Engine.** Crack the metadata, and the entire runtime unfolds."
+
+---
+
+## 📝 License
+
+This is a reverse-engineering educational research project and is not affiliated with or endorsed by Capcom. All assets and code shared are intended for research purposes only.
+
+```
+
+---

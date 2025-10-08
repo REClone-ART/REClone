@@ -1,35 +1,34 @@
-# 🧬 REClone: Reverse-Engineering the RE Engine
+# REClone 🚀
 
-> A community-driven effort to analyze, document, and replicate the core systems of Capcom’s RE Engine — from RSZ serialization to ECS, Lua scripting, and scene composition.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Build status](https://img.shields.io/badge/build-pending-lightgrey.svg)](#)  <!-- replace with CI once set up -->
 
----
-
-## 📌 What is REClone?
-
-**REClone** is a reverse-engineering initiative and prototype framework inspired by the architecture of Capcom's RE Engine. Our goal is to build a modular, open-source clone of the RE Engine's runtime systems for education, tooling, and experimentation.
+A community-driven, metadata-first effort to analyze and prototype Capcom’s RE Engine (RSZ-based). This repo hosts the research, specs, tools, and a minimal engine skeleton to bootstrap contributions.
 
 ---
 
-## 🧠 Core Concept: RSZ Reflection is the Heart
+## Vision
 
-RE Engine is a **metadata-driven architecture** built on RSZ (Reflection Serialization). Every object, component, and asset is defined and processed via RSZ metadata types. Understanding and replicating RSZ is the cornerstone of this project.
+- Reverse-engineer RSZ (Reflection Serialization) metadata and use it to build a small, extensible **RECloneCore** (ECS, RSZ deserializer, scripting).
+- Provide tooling and documentation to allow modders and engine devs to inspect, convert and import assets.
+- Offer an approachable codebase to prototype gameplay and tooling (small demos and examples).
 
 ---
 
-## 🧱 Architecture Overview
+## Architecture Overview
 
 ```mermaid
 graph TD
-    A[RSZ Type System]
-    B[ECS Core]
-    C[Prefab Loader]
-    D[Lua Scripting]
-    E[Asset Interface]
+  A[RSZ Type System]
+  B[ECS Core]
+  C[Prefab / Scene Loader (.pfb/.scn)]
+  D[Lua Scripting]
+  E[Asset Interface (.mesh/.mdf2/.tex)]
 
-    A --> B
-    B --> C
-    B --> D
-    D --> E
+  A --> B
+  B --> C
+  B --> D
+  D --> E
 ````
 
 ---

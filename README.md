@@ -1,29 +1,29 @@
 # REClone 🚀
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Build status](https://img.shields.io/badge/build-pending-lightgrey.svg)](#)  <!-- replace with CI once set up -->
+[![Build status](https://img.shields.io/badge/build-pending-lightgrey.svg)](#)
 
-A community-driven, metadata-first effort to analyze and prototype Capcom’s RE Engine (RSZ-based). This repo hosts the research, specs, tools, and a minimal engine skeleton to bootstrap contributions.
-
----
-
-## Vision
-
-- Reverse-engineer RSZ (Reflection Serialization) metadata and use it to build a small, extensible **RECloneCore** (ECS, RSZ deserializer, scripting).
-- Provide tooling and documentation to allow modders and engine devs to inspect, convert and import assets.
-- Offer an approachable codebase to prototype gameplay and tooling (small demos and examples).
+A community-driven, metadata-first effort to analyze and prototype Capcom’s **RE Engine (RSZ-based)**.
 
 ---
 
-## Architecture Overview
+## 🌍 Vision
+
+- Reverse-engineer RSZ (Reflection Serialization) metadata and use it to build a small, extensible runtime.
+- Provide tooling and documentation to allow modders and engine devs to inspect, convert, and import assets.
+- Offer an approachable C++/Lua-based framework to prototype gameplay, AI, and scene systems.
+
+---
+
+## 🧠 Architecture Overview
 
 ```mermaid
 graph TD
-  A[RSZ Type System]
-  B[ECS Core]
-  C[Prefab / Scene Loader (.pfb/.scn)]
-  D[Lua Scripting]
-  E[Asset Interface (.mesh/.mdf2/.tex)]
+  A["RSZ Type System"]
+  B["ECS Core"]
+  C["Prefab / Scene Loader (.pfb / .scn)"]
+  D["Lua Scripting"]
+  E["Asset Interface (.mesh / .mdf2 / .tex)"]
 
   A --> B
   B --> C

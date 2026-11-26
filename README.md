@@ -111,7 +111,7 @@ Instead, existing projects will serve as research references, format specificati
 | [REFramework](https://github.com/praydog/REFramework) | Runtime inspection, Lua scripting and engine interaction |
 | [REFramework Book](https://cursey.github.io/reframework-book/) | REFramework documentation and scripting |
 | [RE_RSZ](https://github.com/alphazolam/RE_RSZ) | RSZ research and serialization |
-| [REE-Lib](https://github.com/neptunium/REE-Lib) | RE Engine resource and format tooling |
+| [REE-Lib](https://github.com/kagenocookie/RE-Engine-Lib) | RE Engine resource and format tooling |
 | [REasy](https://github.com/seifhassine/REasy) | Resource inspection and editing |
 | [REasy Wiki](https://github.com/seifhassine/REasy-Wiki) | File format and tool documentation |
 | [REE-Content-Editor](https://github.com/kagenocookie/REE-Content-Editor) | Content inspection and editing |

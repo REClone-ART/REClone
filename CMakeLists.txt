@@ -3,46 +3,38 @@ cmake_minimum_required(VERSION 3.20)
 
 project(REClone
     VERSION 0.1.0
-    DESCRIPTION "An independent engine and tooling project inspired by RE Engine research"
+    DESCRIPTION "Independent RE Engine-inspired format, asset and runtime ecosystem"
     LANGUAGES CXX
 )
 
-# Require C++20
+# C++ configuration
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Export compile commands for IDEs and development tools
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Project configuration
+# Build options
+option(RECLONE_BUILD_CLI "Build REClone command-line tools" ON)
+option(RECLONE_BUILD_EDITOR "Build REClone desktop editor" OFF)
+option(RECLONE_BUILD_RUNTIME "Build REClone runtime" OFF)
 option(RECLONE_BUILD_TESTS "Build REClone tests" OFF)
-option(RECLONE_BUILD_TOOLS "Build REClone development tools" OFF)
 
-# Shared compiler warnings
+# Compiler warnings
 if(MSVC)
     add_compile_options(/W4 /permissive-)
 else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# Future project modules will be added here:
-#
-# add_subdirectory(src/core)
-# add_subdirectory(src/serialization)
-# add_subdirectory(src/assets)
-#
-# Development tools:
-# add_subdirectory(tools)
-#
-# Automated tests:
-# if(RECLONE_BUILD_TESTS)
-#     enable_testing()
-#     add_subdirectory(tests)
-# endif()
+# Project modules will be added as they are implemented.
+# The CLI target will be added in a later step.
 
-message(STATUS "Configuring REClone ${PROJECT_VERSION}")
+message(STATUS "-----------------------------------")
+message(STATUS "REClone ${PROJECT_VERSION}")
 message(STATUS "C++ standard: ${CMAKE_CXX_STANDARD}")
-message(STATUS "Build tests: ${RECLONE_BUILD_TESTS}")
-message(STATUS "Build tools: ${RECLONE_BUILD_TOOLS}")
-message(STATUS "REClone foundation configured successfully.")
+message(STATUS "CLI: ${RECLONE_BUILD_CLI}")
+message(STATUS "Editor: ${RECLONE_BUILD_EDITOR}")
+message(STATUS "Runtime: ${RECLONE_BUILD_RUNTIME}")
+message(STATUS "Tests: ${RECLONE_BUILD_TESTS}")
+message(STATUS "-----------------------------------")

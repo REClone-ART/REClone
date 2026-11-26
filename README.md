@@ -116,7 +116,7 @@ Instead, existing projects will serve as research references, format specificati
 | [REasy Wiki](https://github.com/seifhassine/REasy-Wiki) | File format and tool documentation |
 | [REE-Content-Editor](https://github.com/kagenocookie/REE-Content-Editor) | Content inspection and editing |
 | [RE Engine Modding Documentation](https://github.com/Havens-Night/REEngine-Modding-Documentation/wiki) | Modding and format research |
-| [RE-010-Templates](https://github.com/Wunkolo/RE-010-Templates) | Binary format inspection |
+| [RE-010-Templates](https://github.com/alphazolam/RE-Engine-010-Templates) | Binary format inspection |
 
 Additional projects can be discovered through:
 
